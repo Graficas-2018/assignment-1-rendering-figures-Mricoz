@@ -29,13 +29,23 @@
 
             // TO DO: Transform the different figure's positions, and draw them.
 
+			// Cuadrado
 			mat4.identity(modelViewMatrix);
             mat4.translate(modelViewMatrix, modelViewMatrix, [-1.0, 0.0, -3.333]);
             draw(gl, square);
 
+			// Triangulo
 			mat4.identity(modelViewMatrix);
             mat4.translate(modelViewMatrix, modelViewMatrix, [1, 0.0, -3.333]);
             draw(gl, triangle);
+
+			// Rombo
+			mat4.identity(modelViewMatrix);
+            mat4.translate(modelViewMatrix, modelViewMatrix, [-1, -1.35, -3.333]);
+            draw(gl, rhombus);
+			
+			// Pacman
+
 		}
 	);
 </script>
