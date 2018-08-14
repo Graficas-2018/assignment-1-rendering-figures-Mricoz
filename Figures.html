@@ -4,32 +4,39 @@
 <title>Box</title>
 <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
 
-<script src="../libs/jquery-3.3.1/jquery-3.3.1.js"></script>
+<script src="../../libs/jquery-3.3.1/jquery-3.3.1.js"></script>
 
 <!-- http://glmatrix.net/, https://github.com/toji/gl-matrix -->
-<script src="../libs/gl-matrix/gl-matrix.js"></script>
+<script src="../../libs/gl-matrix/gl-matrix.js"></script>
 <script src=Figures.js></script>
 
 <script type="text/javascript">
 
 // Jquery that detects the state of rediness. Code inside the function will only run once the page DOM is ready for Javascript code to execute.
 	$(document).ready(
-			function() {
-                var canvas = document.getElementById("webglcanvas");
-                
-                var gl = initWebGL(canvas);
-                initGL(gl, canvas);
-		        initViewport(gl, canvas);
-                initShader(gl);
+		function() {
 
-                var square = createSquare(gl);
-                var triangle = createTriangle(gl);
-                var sphere = createSphere(gl, 0.5);
-                var rhombus = createRhombus(gl);
-                
-                // TO DO: Transform the different figure's positions, and draw them.
-                
-			}
+			var canvas = document.getElementById("webglcanvas");
+			var gl = initWebGL(canvas);
+			initGL(gl, canvas);
+			initViewport(gl, canvas);
+			initShader(gl);
+
+			var square = createSquare(gl);
+            var triangle = createTriangle(gl);
+            var sphere = createSphere(gl, 0.5);
+            var rhombus = createRhombus(gl);
+
+            // TO DO: Transform the different figure's positions, and draw them.
+
+			mat4.identity(modelViewMatrix);
+            mat4.translate(modelViewMatrix, modelViewMatrix, [-1.0, 0.0, -3.333]);
+            draw(gl, square);
+
+			mat4.identity(modelViewMatrix);
+            mat4.translate(modelViewMatrix, modelViewMatrix, [1, 0.0, -3.333]);
+            draw(gl, triangle);
+		}
 	);
 </script>
 
@@ -41,4 +48,3 @@
 </body>
 
 </html>
-
