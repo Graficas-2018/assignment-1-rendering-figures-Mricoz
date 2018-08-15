@@ -208,8 +208,7 @@ function createTriangle(gl){
     return triangle;
 }
 
-function createRhombus(gl)
-{
+function createRhombus(gl){
     var vertexBuffer;
     vertexBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
@@ -228,8 +227,44 @@ function createRhombus(gl)
     return rhombus;
 }
 
-function createSphere(gl, radius)
-{
-    var sphere = {};
+function createSphere(gl, radius){
+    var vertexBuffer;
+    vertexBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
+
+    var verts = [
+        0.0, 0.0, 0.0
+    ];
+
+    var numTriangulos = 360;
+    var doublePi = 2 * Math.PI;
+
+    for(var i = 0; i < numTriangulos; i++){
+        // Coordenadas x
+        if(i == 180){
+            xCoord = -(radius);
+        } else if (i == 360) {
+            xCoord = radius;
+        } else {
+            xCoord = radius * Math.cos(i * (Math.PI/180));
+        }
+        // Coordenadas y
+        if(i == 90){
+            yCoord = radius;
+        } else if (i == 270) {
+            yCoord = -(radius);
+        } else {
+            yCoord = radius * Math.sin((i * (Math.PI/180)));
+        }
+        // Push al array de verts
+        verts.push(xCoord);
+        verts.push(yCoord);
+        verts.push(0.0); // coord z
+    }
+
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(verts), gl.STATIC_DRAW);
+
+    var sphere = {buffer:vertexBuffer, vertSize:3, nVerts:verts.length/3, primtype:gl.TRIANGLE_FAN};
+
     return sphere;
 }

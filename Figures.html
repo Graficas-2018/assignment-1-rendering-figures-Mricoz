@@ -1,7 +1,7 @@
 <html>
 
 <head>
-<title>Box</title>
+<title>Tarea 1 / Mauricio Rico</title>
 <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
 
 <script src="../../libs/jquery-3.3.1/jquery-3.3.1.js"></script>
@@ -43,9 +43,11 @@
 			mat4.identity(modelViewMatrix);
             mat4.translate(modelViewMatrix, modelViewMatrix, [-1, -1.35, -3.333]);
             draw(gl, rhombus);
-			
-			// Pacman
 
+			// Pacman
+			mat4.identity(modelViewMatrix);
+            mat4.translate(modelViewMatrix, modelViewMatrix, [1, -.68, -3.333]);
+            draw(gl, sphere);
 		}
 	);
 </script>
