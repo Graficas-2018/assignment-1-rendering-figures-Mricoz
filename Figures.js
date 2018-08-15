@@ -170,7 +170,6 @@ function draw(gl, obj)
     gl.drawArrays(obj.primtype, 0, obj.nVerts);
 }
 
-// TO DO: Create functions needed to generate the vertex data for the different figures.
 function createSquare(gl){
     var vertexBuffer;
     vertexBuffer = gl.createBuffer();
@@ -236,35 +235,27 @@ function createSphere(gl, radius){
         0.0, 0.0, 0.0
     ];
 
-    var numTriangulos = 360;
-    var doublePi = 2 * Math.PI;
+    var numTriangulos = 360; // Grados
 
+    // Loop para que el TRIANGLE_FAN de la vuelta completa
     for(var i = 0; i < numTriangulos; i++){
-        // Coordenadas x
-        if(i == 180){
-            xCoord = -(radius);
-        } else if (i == 360) {
-            xCoord = radius;
-        } else {
-            xCoord = radius * Math.cos(i * (Math.PI/180));
+
+        xCoord = radius * Math.cos(i * (Math.PI/180)); // Calculo coordenada x
+        yCoord = radius * Math.sin((i * (Math.PI/180))); // Calculo coordenada y
+
+        if(i > 33 && i < 315){
+            // Push al array de verts
+            verts.push(xCoord);
+            verts.push(yCoord);
+            verts.push(0.0); // coordenada z
         }
-        // Coordenadas y
-        if(i == 90){
-            yCoord = radius;
-        } else if (i == 270) {
-            yCoord = -(radius);
-        } else {
-            yCoord = radius * Math.sin((i * (Math.PI/180)));
-        }
-        // Push al array de verts
-        verts.push(xCoord);
-        verts.push(yCoord);
-        verts.push(0.0); // coord z
     }
+
+    var numVerts = verts.length/3; // variable del numero total de vertices
 
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(verts), gl.STATIC_DRAW);
 
-    var sphere = {buffer:vertexBuffer, vertSize:3, nVerts:verts.length/3, primtype:gl.TRIANGLE_FAN};
+    var sphere = {buffer:vertexBuffer, vertSize:3, nVerts:numVerts, primtype:gl.TRIANGLE_FAN};
 
     return sphere;
 }
